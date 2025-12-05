@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="sr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test Pismenosti - Srpski Jezik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        const pitanja = [
+            { pitanje: "Kako se piše?", opcije: ["Ni ko", "Niko", "Ni-ko"], tacan: 1 },
+            { pitanje: "Koja je pravilna forma?", opcije: ["Pre svega", "Presvega", "Pre-svega"], tacan: 0 },
+            { pitanje: "Kako se piše?", opcije: ["Zbog toga", "Zbоgtoga", "Zbog-toga"], tacan: 0 },
+            { pitanje: "Koja je tačna forma?", opcije: ["Ni šta", "Ništa", "Ni-šta"], tacan: 1 },
+            { pitanje: "Kako se pravilno piše?", opcije: ["Ni gde", "Nigde", "Ni-gde"], tacan: 1 },
+            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Bilo šta", "Bilošta", "Bilo-šta"], tacan: 0 },
+            { pitanje: "Kako se piše?", opcije: ["Ne kad", "Nekad", "Ne-kad"], tacan: 1 },
+            { pitanje: "Koja je pravilna forma?", opcije: ["Osim toga", "Osimtoga", "Osim-toga"], tacan: 0 },
+            { pitanje: "Kako se piše?", opcije: ["Iako", "I ako", "I-ako"], tacan: 0 },
+            { pitanje: "Koja je tačna forma?", opcije: ["Ne što", "Nešto", "Ne-što"], tacan: 1 },
+            { pitanje: "Kako se pravilno piše?", opcije: ["Svaki put", "Svakiput", "Svaki-put"], tacan: 0 },
+            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Ni kako", "Nikako", "Ni-kako"], tacan: 1 },
+            { pitanje: "Kako se piše?", opcije: ["Bez obzira", "Bezobzira", "Bez-obzira"], tacan: 0 },
+            { pitanje: "Koja je pravilna forma?", opcije: ["Zato što", "Zatoštо", "Zato-što"], tacan: 0 },
+            { pitanje: "Kako se piše?", opcije: ["Ne ko", "Neko", "Ne-ko"], tacan: 1 },
+            { pitanje: "Koja je tačna forma?", opcije: ["Možda", "Mož da", "Mož-da"], tacan: 0 },
+            { pitanje: "Kako se pravilno piše?", opcije: ["Bilo ko", "Biloko", "Bilo-ko"], tacan: 0 },
+            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Ni jednom", "Nijednom", "Ni-jednom"], tacan: 1 },
+            { pitanje: "Kako se piše?", opcije: ["U koliko", "Ukoliko", "U-koliko"], tacan: 1 },
+            { pitanje: "Koja je pravilna forma?", opcije: ["Na žalost", "Nažalost", "Johhny"], tacan: 1 }
+        ];
+
+        const BookOpen = () => (
+            <svg className="w-20 h-20 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+            </svg>
+        );
+
+        const Award = () => (
+            <svg className="w-20 h-20 text-yellow-500 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z" />
+            </svg>
+        );
+
+        const CheckCircle = () => (
+            <svg className="w-6 h-6 text-green-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+            </svg>
+        );
+
+        const XCircle = () => (
+            <svg className="w-6 h-6 text-red-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z"/>
+            </svg>
+        );
+
+        const RotateCcw = () => (
+            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 10h10a8 8 0 018 8v2M3 10l6 6m-6-6l6-6" />
+            </svg>
+        );
+
+        function KvizPismenosti() {
+            const [poceo, setPoceo] = useState(false);
+            const [trenutnoPitanje, setTrenutnoPitanje] = useState(0);
+            const [odgovori, setOdgovori] = useState([]);
+            const [zavrsen, setZavrsen] = useState(false);
+
+            const pokreniKviz = () => {
+                setPoceo(true);
+                setTrenutnoPitanje(0);
+                setOdgovori([]);
+                setZavrsen(false);
+            };
+
+            const odaberiOdgovor = (indeks) => {
+                const noviOdgovori = [...odgovori];
+                noviOdgovori[trenutnoPitanje] = indeks;
+                setOdgovori(noviOdgovori);
+
+                if (trenutnoPitanje < pitanja.length - 1) {
+                    setTimeout(() => {
+                        setTrenutnoPitanje(trenutnoPitanje + 1);
+                    }, 300);
+                }
+            };
+
+            const zavrsiKviz = () => {
+                setZavrsen(true);
+            };
+
+            const brojTacnih = odgovori.filter((odg, i) => odg === pitanja[i].tacan).length;
+            const procenat = Math.round((brojTacnih / pitanja.length) * 100);
+
+            if (!poceo) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center p-4">
+                        <div className="max-w-2xl w-full bg-white rounded-2xl shadow-2xl p-8 md:p-12 text-center">
+                            <div className="flex justify-center mb-6">
+                                <BookOpen />
+                            </div>
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-800 mb-4">
+                                Test pismenosti
+                            </h1>
+                            <h2 className="text-2xl md:text-3xl font-semibold text-blue-600 mb-6">
+                                Srpski jezik
+                            </h2>
+                            <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                                Dobrodošli na test pismenosti srpskog jezika! Probaj da uradis ovaj test molim te tito
+                            </p>
+                            <p className="text-md text-gray-500 mb-8">
+                                Test sadrži pitanja raznih vrsta od kurca do lokomotive
+                            </p>
+                            <button
+                                onClick={pokreniKviz}
+                                className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-xl px-12 py-4 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                            >
+                                Započni test
+                            </button>
+                        </div>
+                    </div>
+                );
+            }
+
+            if (zavrsen) {
+                return (
+                    <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center p-4">
+                        <div className="max-w-4xl w-full bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+                            <div className="text-center mb-8">
+                                <Award />
+                                <h2 className="text-4xl font-bold text-gray-800 mb-4">Rezultati testa</h2>
+                                <div className="text-6xl font-bold text-blue-600 mb-2">{brojTacnih}/{pitanja.length}</div>
+                                <p className="text-2xl text-gray-600">Tačnih odgovora ({procenat}%)</p>
+                            </div>
+
+                            <div className="mb-8 p-6 bg-blue-50 rounded-xl">
+                                <h3 className="text-xl font-semibold text-gray-800 mb-2">Vaša ocena:</h3>
+                                <p className="text-3xl font-bold text-blue-600">
+                                    {procenat >= 90 ? "Odličan!" : procenat >= 75 ? "Vrlo dobar" : procenat >= 60 ? "Dobar" : procenat >= 50 ? "Dovoljan" : "Nedovoljan"}
+                                    {procenat >= 90 ? "Odličan!" : procenat >= 75 ? "Vrlo dobar" : procenat >= 60 ? "Dobar" : procenat >= 50 ? "Dovoljan" : "Nedovoljan"}
+                                </p>
+                            </div>
+
+                            <div className="space-y-4 mb-8">
+                                <h3 className="text-2xl font-semibold text-gray-800 mb-4">Pregled odgovora:</h3>
+                                {pitanja.map((p, i) => {
+                                    const korisnikovOdgovor = odgovori[i];
+                                    const tacan = korisnikovOdgovor === p.tacan;
+                                    
+                                    return (
+                                        <div key={i} className={`p-4 rounded-lg border-2 ${tacan ? 'bg-green-50 border-green-300' : 'bg-red-50 border-red-300'}`}>
+                                            <div className="flex items-start gap-3">
+                                                {tacan ? <CheckCircle /> : <XCircle />}
+                                                <div className="flex-1">
+                                                    <p className="font-semibold text-gray-800 mb-2">{i + 1}. {p.pitanje}</p>
+                                                    <p className="text-sm text-gray-600">
+                                                        Vaš odgovor: <span className={tacan ? 'text-green-700 font-semibold' : 'text-red-700 font-semibold'}>
+                                                            {p.opcije[korisnikovOdgovor]}
+                                                        </span>
+                                                    </p>
+                                                    {!tacan && (
+                                                        <p className="text-sm text-green-700 font-semibold">
+                                                            Tačan odgovor: {p.opcije[p.tacan]}
+                                                        </p>
+                                                    )}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    );
+                                })}
+                            </div>
+
+                            <div className="text-center">
+                                <button
+                                    onClick={pokreniKviz}
+                                    className="bg-blue-600 hover:bg-blue-700 text-white font-bold text-lg px-10 py-3 rounded-full transition-all transform hover:scale-105 shadow-lg inline-flex items-center gap-2"
+                                >
+                                    <RotateCcw />
+                                    Ponovi test
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                );
+            }
+
+            const pitanjeObj = pitanja[trenutnoPitanje];
+            const progres = ((trenutnoPitanje + 1) / pitanja.length) * 100;
+
+            return (
+                <div className="min-h-screen bg-gradient-to-br from-blue-900 via-blue-800 to-indigo-900 flex items-center justify-center p-4">
+                    <div className="max-w-3xl w-full bg-white rounded-2xl shadow-2xl p-8 md:p-12">
+                        <div className="mb-6">
+                            <div className="flex justify-between items-center mb-2">
+                                <span className="text-sm font-semibold text-gray-600">
+                                    Pitanje {trenutnoPitanje + 1} od {pitanja.length}
+                                </span>
+                                <span className="text-sm font-semibold text-blue-600">
+                                    {Math.round(progres)}%
+                                </span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-3">
+                                <div
+                                    className="bg-blue-600 h-3 rounded-full transition-all duration-300"
+                                    style={{ width: `${progres}%` }}
+                                ></div>
+                            </div>
+                        </div>
+
+                        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+                            {pitanjeObj.pitanje}
+                        </h2>
+
+                        <div className="space-y-4 mb-8">
+                            {pitanjeObj.opcije.map((opcija, indeks) => (
+                                <button
+                                    key={indeks}
+                                    onClick={() => odaberiOdgovor(indeks)}
+                                    className="w-full p-6 text-left text-lg font-semibold bg-gray-50 hover:bg-blue-50 border-2 border-gray-200 hover:border-blue-400 rounded-xl transition-all transform hover:scale-102"
+                                >
+                                    <span className="text-blue-600 mr-3">{String.fromCharCode(65 + indeks)}.</span>
+                                    {opcija}
+                                </button>
+                            ))}
+                        </div>
+
+                        {trenutnoPitanje === pitanja.length - 1 && odgovori[trenutnoPitanje] !== undefined && (
+                            <div className="text-center">
+                                <button
+                                    onClick={zavrsiKviz}
+                                    className="bg-green-600 hover:bg-green-700 text-white font-bold text-lg px-12 py-4 rounded-full transition-all transform hover:scale-105 shadow-lg"
+                                >
+                                    Svrši test i vidi rezultate
+                                </button>
+                            </div>
+                        )}
+                    </div>
+                </div>
+            );
+        }
+
+        ReactDOM.render(<KvizPismenosti />, document.getElementById('app'));
+    </script>
+</body>
+</html>
