@@ -24,26 +24,195 @@
         const { useState } = React;
 
         const pitanja = [
-            { pitanje: "Kako se piše?", opcije: ["Ni ko", "Niko", "Ni-ko"], tacan: 1 },
-            { pitanje: "Koja je pravilna forma?", opcije: ["Pre svega", "Presvega", "Pre-svega"], tacan: 0 },
-            { pitanje: "Kako se piše?", opcije: ["Zbog toga", "Zbоgtoga", "Zbog-toga"], tacan: 0 },
-            { pitanje: "Koja je tačna forma?", opcije: ["Ni šta", "Ništa", "Ni-šta"], tacan: 1 },
-            { pitanje: "Kako se pravilno piše?", opcije: ["Ni gde", "Nigde", "Ni-gde"], tacan: 1 },
-            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Bilo šta", "Bilošta", "Bilo-šta"], tacan: 0 },
-            { pitanje: "Kako se piše?", opcije: ["Ne kad", "Nekad", "Ne-kad"], tacan: 1 },
-            { pitanje: "Koja je pravilna forma?", opcije: ["Osim toga", "Osimtoga", "Osim-toga"], tacan: 0 },
-            { pitanje: "Kako se piše?", opcije: ["Iako", "I ako", "I-ako"], tacan: 0 },
-            { pitanje: "Koja je tačna forma?", opcije: ["Ne što", "Nešto", "Ne-što"], tacan: 1 },
-            { pitanje: "Kako se pravilno piše?", opcije: ["Svaki put", "Svakiput", "Svaki-put"], tacan: 0 },
-            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Ni kako", "Nikako", "Ni-kako"], tacan: 1 },
-            { pitanje: "Kako se piše?", opcije: ["Bez obzira", "Bezobzira", "Bez-obzira"], tacan: 0 },
-            { pitanje: "Koja je pravilna forma?", opcije: ["Zato što", "Zatoštо", "Zato-što"], tacan: 0 },
-            { pitanje: "Kako se piše?", opcije: ["Ne ko", "Neko", "Ne-ko"], tacan: 1 },
-            { pitanje: "Koja je tačna forma?", opcije: ["Možda", "Mož da", "Mož-da"], tacan: 0 },
-            { pitanje: "Kako se pravilno piše?", opcije: ["Bilo ko", "Biloko", "Bilo-ko"], tacan: 0 },
-            { pitanje: "Koja reč je pravilno napisana?", opcije: ["Ni jednom", "Nijednom", "Ni-jednom"], tacan: 1 },
-            { pitanje: "Kako se piše?", opcije: ["U koliko", "Ukoliko", "U-koliko"], tacan: 1 },
-            { pitanje: "Koja je pravilna forma?", opcije: ["Na žalost", "Nažalost", "Johhny"], tacan: 1 }
+            {
+                pitanje: "1. Pravopis – označi pravilnu opciju:",
+                opcije: [
+                    "Nisam hteo da ti kažem neznam ništa.",
+                    "Nisam hteo da ti kažem, ne znam ništa.",
+                    "Nisam hteo da ti kažem ne, znam ništa."
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "2. Pravopis – označi pravilnu opciju:",
+                opcije: [
+                    "S obzirom da je kasno, poći ćemo.",
+                    "S'obzirom da je kasno, poći ćemo.",
+                    "Sobzirom da je kasno, poći ćemo."
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "3. Pravopis – označi pravilnu opciju:",
+                opcije: [
+                    "Uopšte mi nije jasno šta se dešava.",
+                    "U opšte mi nije jasno šta se dešava.",
+                    "Uopšte mi nije jasno, šta se dešava."
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "4. Pronađi grešku u rečenici: 'Bio je vrlo zaintresovan za naš projekat.'",
+                opcije: [
+                    "Nema greške",
+                    "Greška: zaintresovan → zainteresovan",
+                    "Greška: vrlo → veoma"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "5. Pronađi grešku u rečenici: 'Iznenadilo me je što verovatnoća nije bila veća.'",
+                opcije: [
+                    "Sve je pravilno",
+                    "Greška: verovatnoća → verovatnoća",
+                    "Greška: iznenadilo → iznеnadilo"
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "6. Pronađi grešku u rečenici: 'To uopšte nije nikakakv problem.'",
+                opcije: [
+                    "Nema greške",
+                    "Greška: uopšte → u opšte",
+                    "Greška: nikakakv → nikakav"
+                ],
+                tacan: 2
+            },
+            {
+                pitanje: "7. Kako se pravilno piše?",
+                opcije: [
+                    "ništanevidim",
+                    "ništa ne vidim",
+                    "ništa nevidim"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "8. Kako se pravilno piše?",
+                opcije: [
+                    "uprkos tome",
+                    "u prkos tome",
+                    "uprko s tome"
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "9. Kako se pravilno piše?",
+                opcije: [
+                    "pošto-poto",
+                    "pošto poto",
+                    "poštopoto"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "10. Pravopis – zarez. Izaberi ispravnu rečenicu:",
+                opcije: [
+                    "Ako želiš možemo da se vidimo posle.",
+                    "Ako želiš, možemo da se vidimo posle.",
+                    "Ako, želiš možemo da se vidimo posle."
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "11. Pravopis – zarez. Izaberi ispravnu rečenicu:",
+                opcije: [
+                    "Kada završim domaći otići ću kući da se odmorim.",
+                    "Kada završim domaći, otići ću kući da se odmorim.",
+                    "Kada, završim domaći otići ću kući da se odmorim."
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "12. Pravopis – zarez. Izaberi ispravnu rečenicu:",
+                opcije: [
+                    "Znam da si rekao da ćeš doći ali nisam mislio da ćeš kasniti.",
+                    "Znam da si rekao, da ćeš doći, ali nisam mislio da ćeš kasniti.",
+                    "Znam da si rekao da ćeš doći, ali nisam mislio da ćeš kasniti."
+                ],
+                tacan: 2
+            },
+            {
+                pitanje: "13. Pravilan oblik – spojeno/odvojeno:",
+                opcije: [
+                    "od prilike",
+                    "otprilike",
+                    "odprilike"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "14. Pravilan oblik – spojeno/odvojeno:",
+                opcije: [
+                    "uvek",
+                    "uvjek",
+                    "uviek"
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "15. Pravilan oblik – spojeno/odvojeno:",
+                opcije: [
+                    "ne ću",
+                    "neću",
+                    "ne-ću"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "16. Dopuni pravilno: '_____ si stigao?'",
+                opcije: [
+                    "od kada",
+                    "otkada",
+                    "od-kada"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "17. Dopuni pravilno: '_____ si došao?'",
+                opcije: [
+                    "sčim",
+                    "s čim",
+                    "s-čim"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "18. Dopuni pravilno: 'Čovek _____ je došao.'",
+                opcije: [
+                    "koji",
+                    "kojи",
+                    "koјi"
+                ],
+                tacan: 0
+            },
+            {
+                pitanje: "19. Teže nedoumice – izaberi ispravno:",
+                opcije: [
+                    "popravilu",
+                    "po pravilu",
+                    "po-pravilu"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "20. Teže nedoumice – izaberi ispravno:",
+                opcije: [
+                    "nipo koju cenu",
+                    "ni po koju cenu",
+                    "ni po koju-cenu"
+                ],
+                tacan: 1
+            },
+            {
+                pitanje: "21. Teže nedoumice – izaberi ispravno:",
+                opcije: [
+                    "otud'a",
+                    "otuda",
+                    "otud a"
+                ],
+                tacan: 1
+            }
         ];
 
         const BookOpen = () => (
@@ -122,10 +291,10 @@
                                 Srpski jezik
                             </h2>
                             <p className="text-lg text-gray-600 mb-8 leading-relaxed">
-                                Dobrodošli na test pismenosti srpskog jezika! Probaj da uradis ovaj test molim te tito
+                              Milena test pismenosti
                             </p>
                             <p className="text-md text-gray-500 mb-8">
-                                Test sadrži pitanja raznih vrsta od kurca do lokomotive
+                                Johnny
                             </p>
                             <button
                                 onClick={pokreniKviz}
@@ -153,7 +322,6 @@
                                 <h3 className="text-xl font-semibold text-gray-800 mb-2">Vaša ocena:</h3>
                                 <p className="text-3xl font-bold text-blue-600">
                                     {procenat >= 90 ? "Odličan!" : procenat >= 75 ? "Vrlo dobar" : procenat >= 60 ? "Dobar" : procenat >= 50 ? "Dovoljan" : "Nedovoljan"}
-                                    {procenat >= 90 ? "Odličan!" : procenat >= 75 ? "Vrlo dobar" : procenat >= 60 ? "Dobar" : procenat >= 50 ? "Dovoljan" : "Nedovoljan"}
                                 </p>
                             </div>
 
@@ -168,7 +336,7 @@
                                             <div className="flex items-start gap-3">
                                                 {tacan ? <CheckCircle /> : <XCircle />}
                                                 <div className="flex-1">
-                                                    <p className="font-semibold text-gray-800 mb-2">{i + 1}. {p.pitanje}</p>
+                                                    <p className="font-semibold text-gray-800 mb-2">{p.pitanje}</p>
                                                     <p className="text-sm text-gray-600">
                                                         Vaš odgovor: <span className={tacan ? 'text-green-700 font-semibold' : 'text-red-700 font-semibold'}>
                                                             {p.opcije[korisnikovOdgovor]}
@@ -223,7 +391,7 @@
                             </div>
                         </div>
 
-                        <h2 className="text-3xl font-bold text-gray-800 mb-8">
+                        <h2 className="text-2xl md:text-3xl font-bold text-gray-800 mb-8">
                             {pitanjeObj.pitanje}
                         </h2>
 
@@ -232,7 +400,7 @@
                                 <button
                                     key={indeks}
                                     onClick={() => odaberiOdgovor(indeks)}
-                                    className="w-full p-6 text-left text-lg font-semibold bg-gray-50 hover:bg-blue-50 border-2 border-gray-200 hover:border-blue-400 rounded-xl transition-all transform hover:scale-102"
+                                    className="w-full p-5 text-left text-base md:text-lg font-semibold bg-gray-50 hover:bg-blue-50 border-2 border-gray-200 hover:border-blue-400 rounded-xl transition-all transform hover:scale-102"
                                 >
                                     <span className="text-blue-600 mr-3">{String.fromCharCode(65 + indeks)}.</span>
                                     {opcija}
